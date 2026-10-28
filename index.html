@@ -437,13 +437,16 @@
             </div>
         </section>
 
-        <!-- Remote Vault Feed Sync Banner -->
-        <div style="background: var(--surface-card); border: 1px dashed var(--neon-cyan); border-radius: 16px; padding: 18px; margin-top: 20px; text-align: center;">
-            <h3 style="color: var(--neon-cyan); font-size: 14px; margin-bottom: 6px;">📡 Remote Vault Feed Endpoint</h3>
-            <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 8px;">Sync your Android AppVault client with this live catalog endpoint:</p>
-            <code style="background: var(--bg-dark); color: var(--neon-green); padding: 6px 14px; border-radius: 8px; font-size: 13px; display: inline-block; word-break: break-all;">
-                https://vinjohn68.github.io/appvault-web/apps.json
-            </code>
+        <!-- Sync Catalog Action Banner -->
+        <div style="background: var(--surface-card); border: 1px solid var(--card-stroke); border-radius: 16px; padding: 16px 20px; margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+            <div>
+                <h3 style="color: var(--text-primary); font-size: 15px; font-weight: 700;">Catalog Sync</h3>
+                <p style="color: var(--text-secondary); font-size: 12px;">Re-fetch and load latest applications from live catalog feed</p>
+            </div>
+            <button id="syncCatalogBtn" class="btn-action" style="padding: 10px 20px; background: transparent; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M2.5 22v-6h6"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8M22 12.5a10 10 0 0 1-18.8 4.3L2.5 16"/></svg>
+                Sync Vault Catalog
+            </button>
         </div>
 
         <!-- Category Tabs -->
@@ -494,6 +497,7 @@
         const appModal = document.getElementById('appModal');
         const modalContent = document.getElementById('modalContent');
         const modalClose = document.getElementById('modalClose');
+        const syncCatalogBtn = document.getElementById('syncCatalogBtn');
 
         // Fetch catalog JSON dynamically (with cache buster)
         async function loadCatalog() {
@@ -506,6 +510,19 @@
                 console.error(error);
                 appsGrid.innerHTML = `<div class="state-message">Unable to load app catalog. Please check <code>apps.json</code> path.</div>`;
             }
+        }
+
+        if (syncCatalogBtn) {
+            syncCatalogBtn.addEventListener('click', async () => {
+                syncCatalogBtn.textContent = 'Syncing...';
+                await loadCatalog();
+                setTimeout(() => {
+                    syncCatalogBtn.innerHTML = `✓ Synced!`;
+                    setTimeout(() => {
+                        syncCatalogBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M2.5 22v-6h6"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3L21.5 8M22 12.5a10 10 0 0 1-18.8 4.3L2.5 16"/></svg> Sync Vault Catalog`;
+                    }, 2000);
+                }, 400);
+            });
         }
 
         // Render filtered app list
