@@ -2,40 +2,14 @@
   {
     "id": "vinny_01",
     "name": "VINNY VLC",
-    "packageName": "com.vinny.vlc",
+    "packageName": "com.example.appvault",
     "version": "1.0.0",
     "versionCode": 1,
-    "fileSize": "28.5 MB",
-    "downloadUrl": "https://vinnyappstore.web.app/apks/vinny_vlc.apk",
+    "fileSize": "207 MB",
+    "downloadUrl": "https://github.com/vinjohn68/appvault-web/releases/download/v1.0.0/app-debug.apk",
     "description": "Customized VLC media player with enhanced playback controls and media streaming.",
     "category": "Media",
     "rating": "5.0 ★",
     "downloadsCount": "10K+"
-  },
-  {
-    "id": "vinny_02",
-    "name": "VINNY MOVIES",
-    "packageName": "com.vinny.movies",
-    "version": "1.0.0",
-    "versionCode": 1,
-    "fileSize": "18.2 MB",
-    "downloadUrl": "https://vinnyappstore.web.app/apks/vinny_movies.apk",
-    "description": "Stream high-definition movies and entertainment content on Vinny Movies.",
-    "category": "Media",
-    "rating": "5.0 ★",
-    "downloadsCount": "25K+"
-  },
-  {
-    "id": "vinny_03",
-    "name": "VINNY SPORTS",
-    "packageName": "com.vinny.sports",
-    "version": "1.0.0",
-    "versionCode": 1,
-    "fileSize": "15.0 MB",
-    "downloadUrl": "https://vinnyappstore.web.app/apks/vinny_sports.apk",
-    "description": "Live sports scores, streams, and match updates on Vinny Sports.",
-    "category": "Utilities",
-    "rating": "4.9 ★",
-    "downloadsCount": "15K+"
   }
 ]
