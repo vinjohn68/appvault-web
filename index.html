@@ -417,6 +417,8 @@
                 <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <input type="text" id="searchInput" aria-label="Search apps" class="search-input" placeholder="Search apps by name or keyword...">
             </div>
+
+            <a href="https://github.com/vinjohn68/appvault-web/releases/download/v1.0.0/app-debug.apk" class="btn-action" style="padding: 10px 20px; font-size: 13px;">Get AppVault App</a>
         </div>
     </nav>
 
@@ -425,9 +427,24 @@
         <section class="hero">
             <div class="hero-text">
                 <h1>AppVault <span>Web Store</span></h1>
-                <p>Browse, search, and access application feeds directly in your browser without needing local APK installation.</p>
+                <p>Browse, search, and access application feeds directly in your browser, or install the AppVault Android App client for native package management.</p>
+                <div style="margin-top: 16px;">
+                    <a href="https://github.com/vinjohn68/appvault-web/releases/download/v1.0.0/app-debug.apk" class="btn-action" style="padding: 12px 28px; font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Download AppVault Client APK
+                    </a>
+                </div>
             </div>
         </section>
+
+        <!-- Remote Vault Feed Sync Banner -->
+        <div style="background: var(--surface-card); border: 1px dashed var(--neon-cyan); border-radius: 16px; padding: 18px; margin-top: 20px; text-align: center;">
+            <h3 style="color: var(--neon-cyan); font-size: 14px; margin-bottom: 6px;">📡 Remote Vault Feed Endpoint</h3>
+            <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 8px;">Sync your Android AppVault client with this live catalog endpoint:</p>
+            <code style="background: var(--bg-dark); color: var(--neon-green); padding: 6px 14px; border-radius: 8px; font-size: 13px; display: inline-block; word-break: break-all;">
+                https://vinjohn68.github.io/appvault-web/apps.json
+            </code>
+        </div>
 
         <!-- Category Tabs -->
         <div class="categories" id="categoryContainer">
@@ -478,10 +495,10 @@
         const modalContent = document.getElementById('modalContent');
         const modalClose = document.getElementById('modalClose');
 
-        // Fetch catalog JSON dynamically
+        // Fetch catalog JSON dynamically (with cache buster)
         async function loadCatalog() {
             try {
-                const response = await fetch('./apps.json');
+                const response = await fetch('./apps.json?v=' + Date.now());
                 if (!response.ok) throw new Error('Failed to load apps.json');
                 allApps = await response.json();
                 renderApps();
