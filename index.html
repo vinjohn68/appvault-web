@@ -37,6 +37,73 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Animations & Dynamic Effects */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -20px) scale(1.1); }
+        }
+
+        @keyframes pulseDot {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.08) 0%, transparent 70%);
+            z-index: -1;
+            animation: floatOrb 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -100px;
+            right: -100px;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.06) 0%, transparent 70%);
+            z-index: -1;
+            animation: floatOrb 10s ease-in-out infinite reverse;
+            pointer-events: none;
+        }
+
+        .hero, .app-card, .categories, .catalog-title {
+            animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .app-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .app-card:hover {
+            border-color: var(--neon-green);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 15px 35px rgba(0, 255, 136, 0.2);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--neon-green);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseDot 2s infinite;
         }
 
         /* Container */
@@ -409,7 +476,7 @@
         <div class="container nav-content">
             <a href="#" class="logo">
                 <span class="logo-title">AppVault</span>
-                <span class="badge">WEB APP</span>
+                <span class="badge">WEB APP <span class="live-dot"></span></span>
             </a>
 
             <!-- Realtime Search Bar -->
@@ -527,12 +594,15 @@
 
         // Render filtered app list
         function renderApps() {
-            const searchQuery = searchInput.value.toLowerCase().trim();
+            const searchQuery = searchInput.value ? searchInput.value.toLowerCase().trim() : '';
 
             const filtered = allApps.filter(app => {
-                const matchesCategory = (currentCategory === 'All') || (app.category === currentCategory);
-                const matchesSearch = app.name.toLowerCase().includes(searchQuery) ||
-                                      app.description.toLowerCase().includes(searchQuery);
+                const category = app.category || 'General';
+                const name = app.name || '';
+                const description = app.description || '';
+                const matchesCategory = (currentCategory === 'All') || (category === currentCategory);
+                const matchesSearch = name.toLowerCase().includes(searchQuery) ||
+                                      description.toLowerCase().includes(searchQuery);
                 return matchesCategory && matchesSearch;
             });
 
