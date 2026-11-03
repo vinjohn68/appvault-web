@@ -106,6 +106,23 @@
             animation: pulseDot 2s infinite;
         }
 
+        /* Scroll-Driven Reveal & Parallax Effects */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(35px) scale(0.97);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .hero {
+            will-change: transform;
+        }
+
         /* Container */
         .container {
             width: 100%;
@@ -566,6 +583,25 @@
         const modalClose = document.getElementById('modalClose');
         const syncCatalogBtn = document.getElementById('syncCatalogBtn');
 
+        // Scroll-Driven Reveal Observer
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const hero = document.querySelector('.hero');
+            if (hero && scrollY < 500) {
+                hero.style.transform = `translateY(${scrollY * 0.12}px)`;
+            }
+        });
+
         // Fetch catalog JSON dynamically (with cache buster)
         async function loadCatalog() {
             try {
@@ -613,8 +649,8 @@
                 return;
             }
 
-            appsGrid.innerHTML = filtered.map(app => `
-                <div class="app-card" onclick="openAppModal('${app.id}')">
+            appsGrid.innerHTML = filtered.map((app, index) => `
+                <div class="app-card scroll-reveal" style="transition-delay: ${index * 0.08}s;" onclick="openAppModal('${app.id}')">
                     <div class="app-header">
                         <div class="app-icon">${app.name.charAt(0)}</div>
                         <div class="app-meta">
@@ -635,6 +671,9 @@
                     </div>
                 </div>
             `).join('');
+
+            // Observe newly rendered cards for scroll reveal
+            document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
         }
 
         // Category Filter Switching
