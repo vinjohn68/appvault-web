@@ -824,7 +824,7 @@
             }
 
             appsGrid.innerHTML = filtered.map((app, index) => `
-                <div class="app-card scroll-reveal" style="transition-delay: ${index * 0.08}s;" onclick="openAppModal('${app.id}')">
+                <div class="app-card" onclick="openAppModal('${app.id}')">
                     <div class="app-header">
                         <div class="app-icon">${app.name.charAt(0)}</div>
                         <div class="app-meta">
