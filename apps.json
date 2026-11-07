@@ -28,7 +28,7 @@
   {
     "id": "vinny_sports_01",
     "name": "VINNY SPORTS",
-    "packageName": "com.vinnysports.app",
+    "packageName": "com.example.vinnysports",
     "version": "1.0.0",
     "versionCode": 1,
     "fileSize": "9.8 MB",
@@ -54,7 +54,7 @@
   {
     "id": "vinny_vlc_01",
     "name": "VINNY VLC",
-    "packageName": "com.vinny.vlc",
+    "packageName": "com.example.vinnyvlc",
     "version": "1.0.0",
     "versionCode": 1,
     "fileSize": "208 MB",
