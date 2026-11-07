@@ -5,12 +5,25 @@
     "packageName": "com.example.appvault",
     "version": "1.0.0",
     "versionCode": 1,
-    "fileSize": "15.6 MB",
+    "fileSize": "15.0 MB",
     "downloadUrl": "https://github.com/vinjohn68/appvault-web/releases/download/v1.0.0/Appvault.apk",
     "description": "The official AppVault Android client app for managing, installing, and updating private applications.",
     "category": "Utilities",
     "rating": "5.0 ★",
     "downloadsCount": "50K+"
+  },
+  {
+    "id": "offline_player_01",
+    "name": "OFFLINE PLAYER",
+    "packageName": "com.example.offlineplayer",
+    "version": "1.0.0",
+    "versionCode": 1,
+    "fileSize": "22.0 MB",
+    "downloadUrl": "https://github.com/vinjohn68/appvault-web/releases/download/v1.0.0/offline_player.apk",
+    "description": "High-performance offline media player for playing local videos and music without internet.",
+    "category": "Media",
+    "rating": "4.9 ★",
+    "downloadsCount": "20K+"
   },
   {
     "id": "vinny_01",
